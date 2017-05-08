@@ -49,6 +49,7 @@
  {  
     char response; 
     node_c * pt;
+    h = NULL;
     printf("do you want to enter another element? y/n: ");
     scanf(" %c",&response);
     while(response == 'y')
