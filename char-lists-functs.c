@@ -10,7 +10,7 @@
  * 4. add element at positions: start,end,middle:before,middle:after
  * 5. return ith element if exist NULL if not
  * 6. print out list
-	* 7. delete list elements at positions:start,end,middle each position has both the logical and physical deletion
+ * 7. delete list elements at positions:start,end,middle each position has both the logical and physical deletion
  * ***************/
  
  typedef struct node
