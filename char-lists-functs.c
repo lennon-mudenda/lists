@@ -1,7 +1,7 @@
 /****************
  * @author:lennon mudenda
  * @description::::
- * a c library to provide helper functions when dealing with linked lists of characters
+ * a c library to provide helper functions when dealing with a linked lists of characters
  * !include stdlib.h always
  * @function list::
  * 1. list creater with known number of elements
@@ -9,7 +9,8 @@
  * 3. list elements count
  * 4. add element at positions: start,end,middle:before,middle:after
  * 5. return ith element if exist NULL if not
- * 5. print out list
+ * 6. print out list
+	* 7. delete list elements at positions:start,end,middle each position has both the logical and physical deletion
  * ***************/
  
  typedef struct node
@@ -31,7 +32,16 @@
  void list_add_mid_after(node_c ** new_elem,node_c ** elem);
  node_c list_ith_elem(node_c * h,int i);
  void print_list(node_c * h);
- 
+ void list_delete_start(node_c ** h);
+ void list_delete_start(node_c ** h,node_c ** x);
+ void list_delete_middle(node_c ** h);
+ void list_delete_middle(node_c ** h,node_c ** x);
+ void list_delete_end(node_c ** h);
+ void list_delete_end(node_c ** h,node_c ** x);
+
+/****************
+@function declarations/definitions
+*/
  void create_list_num(node_c ** h,int num_elem)
  {
      node_c * pt;
@@ -133,3 +143,54 @@
          pt = pt->next;
      }
  }
+ void list_delete_start(node_c ** h)
+ {
+    	node_c * x;
+					x = h;
+					h = h->next;
+					free(x);
+ }
+ void list_delete_start(node_c ** h,node_c ** x)
+	{
+					x = h;
+					h = h->next;
+	}
+ void list_delete_middle(node_c ** h,node ** elem)
+	{
+					node_c * x = h;
+					while(x->next != elem)
+					{
+								x = x->next;
+					}
+					x->next = elem->next;
+					free(elem);
+	}
+ void list_delete_middle(node_c ** h,node_c * elem)
+	{
+					node_c * x = h;
+					while(x->next != elem)
+					{
+								x = x->next;
+					}
+					x->next = elem->next;
+	}
+ void list_delete_end(node_c ** h)
+	{
+					node_c * x = h;
+					while(x->next->next != NULL)
+					{
+								x = x->next;
+					}
+					free(x->next);
+					x->next = NULL;
+	}
+ void list_delete_end(node_c ** h,node_c ** elem)
+	{
+					node_c * x = h;
+					while(x->next->next != NULL)
+					{
+								x = x->next;
+					}
+					elem = x->next;
+					x->next = NULL;
+	}
