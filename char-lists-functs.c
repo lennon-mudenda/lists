@@ -143,54 +143,54 @@
          pt = pt->next;
      }
  }
- void list_delete_start(node_c ** h)
- {
-    	node_c * x;
-					x = h;
-					h = h->next;
-					free(x);
- }
- void list_delete_start(node_c ** h,node_c ** x)
+void list_delete_start(node_c ** h)
+{
+    node_c * x;
+	x = h;
+	h = h->next;
+    free(x);
+}
+void list_delete_start(node_c ** h,node_c ** x)
+{
+	x = h;
+	h = h->next;
+}
+void list_delete_middle(node_c ** h,node ** elem)
+{
+	node_c * x = h;
+	while(x->next != elem)
 	{
-					x = h;
-					h = h->next;
+		x = x->next;
 	}
- void list_delete_middle(node_c ** h,node ** elem)
+	x->next = elem->next;
+	free(elem);
+}
+void list_delete_middle(node_c ** h,node_c * elem)
+{
+	node_c * x = h;
+	while(x->next != elem)
 	{
-					node_c * x = h;
-					while(x->next != elem)
-					{
-								x = x->next;
-					}
-					x->next = elem->next;
-					free(elem);
+		x = x->next;
 	}
- void list_delete_middle(node_c ** h,node_c * elem)
+	x->next = elem->next;
+}
+void list_delete_end(node_c ** h)
+{
+	node_c * x = h;
+	while(x->next->next != NULL)
 	{
-					node_c * x = h;
-					while(x->next != elem)
-					{
-								x = x->next;
-					}
-					x->next = elem->next;
+		x = x->next;
 	}
- void list_delete_end(node_c ** h)
+	free(x->next);
+	x->next = NULL;
+}
+void list_delete_end(node_c ** h,node_c ** elem)
+{
+	node_c * x = h;
+	while(x->next->next != NULL)
 	{
-					node_c * x = h;
-					while(x->next->next != NULL)
-					{
-								x = x->next;
-					}
-					free(x->next);
-					x->next = NULL;
+		x = x->next;
 	}
- void list_delete_end(node_c ** h,node_c ** elem)
-	{
-					node_c * x = h;
-					while(x->next->next != NULL)
-					{
-								x = x->next;
-					}
-					elem = x->next;
-					x->next = NULL;
-	}
+	elem = x->next;
+	x->next = NULL;
+}
