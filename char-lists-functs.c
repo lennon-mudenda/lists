@@ -13,6 +13,10 @@
 	* 7. delete list elements at positions:start,end,middle each position has both the logical and physical deletion
  * ***************/
  
+ /*********
+  * list element declaration
+  * 
+ */
  typedef struct node
  {
      char c;
@@ -32,12 +36,12 @@
  void list_add_mid_after(node_c ** new_elem,node_c ** elem);
  node_c list_ith_elem(node_c * h,int i);
  void print_list(node_c * h);
- void list_delete_start(node_c ** h);
- void list_delete_start(node_c ** h,node_c ** x);
- void list_delete_middle(node_c ** h);
- void list_delete_middle(node_c ** h,node_c ** x);
- void list_delete_end(node_c ** h);
- void list_delete_end(node_c ** h,node_c ** x);
+ void list_delete_start_phy(node_c ** h);
+ void list_delete_start_log(node_c ** h,node_c ** x);
+ void list_delete_middle_phy(node_c ** h);
+ void list_delete_middle_log(node_c ** h,node_c ** x);
+ void list_delete_end_phy(node_c ** h);
+ void list_delete_end_log(node_c ** h,node_c ** x);
 
 /****************
 @function declarations/definitions
@@ -45,41 +49,42 @@
  void create_list_num(node_c ** h,int num_elem)
  {
      node_c * pt;
-     h = NULL;
-     for(int i = 0;i < num_elem;i++)
+     *h = NULL;
+     int i;
+     for(i = 0;i < num_elem;i++)
      {
          pt = malloc(sizeof(node_c));
-         print("enter a character");
+         printf("\n enter a character");
          scanf(" %c",&pt->c);
-         pt->next = h;
-         h = pt;
+         pt->next = *h;
+         *h = pt;
      }
  }
  void create_list(node_c ** h)
  {  
     char response; 
     node_c * pt;
-    h = NULL;
+    *h = NULL;
     printf("do you want to enter another element? y/n: ");
     scanf(" %c",&response);
     while(response == 'y')
     {
         pt = malloc(sizeof(node_c));
-        print("enter a character");
+        print("\n enter a character ");
         scanf(" %c",&pt->c);
-        pt->next = h;
-        h = pt;
-        printf("do you want to enter another element? y/n: ");
+        pt->next = *h;
+        *h = pt;
+        printf("\n do you want to enter another element? y/n: ");
         scanf(" %c",&response);
     }
  }
  int list_num_elem(node_c * h)
  {
-     node_c * pt;
+     node_c * pt = h;
      int n = 0;
-     for(pt = h;pt!=NULL;)
+     while(pt != NULL)
      {
-         n += i;
+         n += 1;
          pt = pt->next;
      }
      return n;
@@ -87,7 +92,7 @@
  void list_add_start(node_c ** h,node_c ** new_elem)
  {
      new_elem->next = h->next;
-     h = new_elem;
+     *h = new_elem;
  }
  void list_add_end(node_c * h,node_c ** new_elem)
  {
@@ -120,7 +125,7 @@
  {
     node_c * pt;
     int co;
-    if(list_num_elem(h)>i)
+    if(list_num_elem(h)<i)
     {
         return NULL;
     }
@@ -143,19 +148,19 @@
          pt = pt->next;
      }
  }
-void list_delete_start(node_c ** h)
+void list_delete_start_phy(node_c ** h)
 {
     node_c * x;
-	x = h;
-	h = h->next;
+	x = *h;
+	*h = h->next;
     free(x);
 }
-void list_delete_start(node_c ** h,node_c ** x)
+void list_delete_start_log(node_c ** h,node_c ** x)
 {
-	x = h;
-	h = h->next;
+	x = *h;
+	*h = h->next;
 }
-void list_delete_middle(node_c ** h,node ** elem)
+void list_delete_middle_phy(node_c ** h,node ** elem)
 {
 	node_c * x = h;
 	while(x->next != elem)
@@ -165,7 +170,7 @@ void list_delete_middle(node_c ** h,node ** elem)
 	x->next = elem->next;
 	free(elem);
 }
-void list_delete_middle(node_c ** h,node_c * elem)
+void list_delete_middle_log(node_c ** h,node_c * elem)
 {
 	node_c * x = h;
 	while(x->next != elem)
@@ -174,7 +179,7 @@ void list_delete_middle(node_c ** h,node_c * elem)
 	}
 	x->next = elem->next;
 }
-void list_delete_end(node_c ** h)
+void list_delete_end_phy(node_c ** h)
 {
 	node_c * x = h;
 	while(x->next->next != NULL)
@@ -184,7 +189,7 @@ void list_delete_end(node_c ** h)
 	free(x->next);
 	x->next = NULL;
 }
-void list_delete_end(node_c ** h,node_c ** elem)
+void list_delete_end_log(node_c ** h,node_c ** elem)
 {
 	node_c * x = h;
 	while(x->next->next != NULL)
